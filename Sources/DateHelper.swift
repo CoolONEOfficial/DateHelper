@@ -64,6 +64,8 @@ public extension Date {
         self.init(timeInterval: 0, since: date)
     }
     
+    #if !os(Linux)
+    
     /*
         Creates a new Date based on the first date detected on a string using data dectors.
     */
@@ -77,6 +79,8 @@ public extension Date {
             return nil
         }
     }
+    
+    #endif
     
     // MARK: - Convert to String
     
@@ -98,23 +102,23 @@ public extension Date {
             }
             return formatter.string(from: component(.day)! as NSNumber)!
         case .weekday:
-            let weekdaySymbols = Date.cachedDateFormatters.cachedFormatter().weekdaySymbols!
+            let weekdaySymbols: [String] = Date.cachedDateFormatters.cachedFormatter().weekdaySymbols
             let string = weekdaySymbols[component(.weekday)!-1] as String
             return string
         case .shortWeekday:
-            let shortWeekdaySymbols = Date.cachedDateFormatters.cachedFormatter().shortWeekdaySymbols!
+            let shortWeekdaySymbols: [String] = Date.cachedDateFormatters.cachedFormatter().shortWeekdaySymbols
             return shortWeekdaySymbols[component(.weekday)!-1] as String
         case .veryShortWeekday:
-            let veryShortWeekdaySymbols = Date.cachedDateFormatters.cachedFormatter().veryShortWeekdaySymbols!
+            let veryShortWeekdaySymbols: [String] = Date.cachedDateFormatters.cachedFormatter().veryShortWeekdaySymbols
             return veryShortWeekdaySymbols[component(.weekday)!-1] as String
         case .month:
-            let monthSymbols = Date.cachedDateFormatters.cachedFormatter().monthSymbols!
+            let monthSymbols: [String] = Date.cachedDateFormatters.cachedFormatter().monthSymbols
             return monthSymbols[component(.month)!-1] as String
         case .shortMonth:
-            let shortMonthSymbols = Date.cachedDateFormatters.cachedFormatter().shortMonthSymbols!
+            let shortMonthSymbols: [String] = Date.cachedDateFormatters.cachedFormatter().shortMonthSymbols
             return shortMonthSymbols[component(.month)!-1] as String
         case .veryShortMonth:
-            let veryShortMonthSymbols = Date.cachedDateFormatters.cachedFormatter().veryShortMonthSymbols!
+            let veryShortMonthSymbols: [String] = Date.cachedDateFormatters.cachedFormatter().veryShortMonthSymbols
             return veryShortMonthSymbols[component(.month)!-1] as String
         }
     }
